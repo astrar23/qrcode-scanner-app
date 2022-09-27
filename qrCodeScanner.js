@@ -8,9 +8,11 @@ const qrResult = document.getElementById("qr-result");
 const outputData = document.getElementById("outputData");
 const btnScanQR = document.getElementById("btn-scan-qr");
 
+const btnFlip = document.getElementById("btn-flip");
 const qrFrame = document.getElementById("qr-frame");
 
 let scanning = false;
+let facingMode = "environment";
 
 qrCode.callback = res => {
   if (res) {
@@ -24,24 +26,35 @@ qrCode.callback = res => {
     qrResult.hidden = false;
     canvasElement.hidden = true;
     btnScanQR.hidden = false;
+    btnFlip.hidden = true;
   }
 };
 
 btnScanQR.onclick = () => {
+  runCam();
+};
+
+btnFlip.onclick = () => {
+  facingMode = "user";
+  runCam();
+};
+
+function runCam() {
   navigator.mediaDevices
-    .getUserMedia({ video: { facingMode: "environment" } })
+    .getUserMedia({ video: { facingMode: facingMode } })
     .then(function(stream) {
       scanning = true;
       qrResult.hidden = true;
       btnScanQR.hidden = true;
       canvasElement.hidden = false;
+      btnFlip.hidden = false;
       video.setAttribute("playsinline", true); // required to tell iOS safari we don't want fullscreen
       video.srcObject = stream;
       video.play();
       tick();
       scan();
     });
-};
+}
 
 function tick() {
   canvasElement.height = video.videoHeight;
