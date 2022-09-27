@@ -41,7 +41,7 @@ btnFlip.onclick = () => {
 
 function startCam() {
   navigator.mediaDevices
-    .getUserMedia({ video: { facingMode: facingMode } })
+    .getUserMedia({ video: { facingMode: facingMode, focusMode: 'continuous' } })
     .then(function(stream) {
       scanning = true;
       qrResult.hidden = true;
