@@ -31,15 +31,15 @@ qrCode.callback = res => {
 };
 
 btnScanQR.onclick = () => {
-  runCam();
+  startCam();
 };
 
 btnFlip.onclick = () => {
-  facingMode = "user";
-  runCam();
+  facingMode = (facingMode == "user")? "environment" : "user";
+  startCam();
 };
 
-function runCam() {
+function startCam() {
   navigator.mediaDevices
     .getUserMedia({ video: { facingMode: facingMode } })
     .then(function(stream) {
