@@ -10,6 +10,7 @@ const btnScanQR = document.getElementById("btn-scan-qr");
 
 const btnFlip = document.getElementById("btn-flip");
 const qrFrame = document.getElementById("qr-frame");
+const input = document.querySelector('input[type="range"]');
 
 let scanning = false;
 let facingMode = "environment";
@@ -27,6 +28,7 @@ qrCode.callback = res => {
     canvasElement.hidden = true;
     btnScanQR.hidden = false;
     btnFlip.hidden = true;
+    input.hidden = true;
   }
 };
 
@@ -41,9 +43,32 @@ btnFlip.onclick = () => {
 
 function startCam() {
   navigator.mediaDevices
-    .getUserMedia({ video: { facingMode: facingMode, focusMode: 'continuous' } })
+    .getUserMedia({ video: { facingMode: facingMode } })
     .then(function(stream) {
       scanning = true;
+
+      const track = stream.getVideoTracks()[0];
+      const capabilities = track.getCapabilities();
+    
+      // Check whether focus distance is supported or not.
+      if (capabilities.focusDistance) {
+        // Map focus distance to a slider element.
+        input.min = capabilities.focusDistance.min;
+        input.max = capabilities.focusDistance.max;
+        input.step = capabilities.focusDistance.step;
+        input.value = track.getSettings().focusDistance;
+      
+        input.oninput = function(event) {
+          track.applyConstraints({
+            advanced: [{
+              focusMode: "manual",
+              focusDistance: event.target.value
+            }]
+          });
+        };
+        input.hidden = false;
+      }
+        
       qrResult.hidden = true;
       btnScanQR.hidden = true;
       canvasElement.hidden = false;
@@ -79,4 +104,3 @@ function scan() {
     setTimeout(scan, 300);
   }
 }
-
