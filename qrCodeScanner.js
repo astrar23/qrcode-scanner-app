@@ -8,6 +8,8 @@ const qrResult = document.getElementById("qr-result");
 const outputData = document.getElementById("outputData");
 const btnScanQR = document.getElementById("btn-scan-qr");
 
+const qrFrame = document.getElementById("qr-frame");
+
 let scanning = false;
 
 qrCode.callback = res => {
@@ -46,6 +48,14 @@ function tick() {
   canvasElement.width = video.videoWidth;
   canvas.drawImage(video, 0, 0, canvasElement.width, canvasElement.height);
 
+  var aspectDiff = canvasElement.width - canvasElement.height;
+  var offset = Math.abs(aspectDiff/2);
+  if (aspectDiff > 0) {
+    canvas.drawImage(qrFrame, offset, 0, canvasElement.height, canvasElement.height);
+  } else {
+    canvas.drawImage(qrFrame, 0, offset, canvasElement.width, canvasElement.width);
+  }
+
   scanning && requestAnimationFrame(tick);
 }
 
@@ -56,3 +66,4 @@ function scan() {
     setTimeout(scan, 300);
   }
 }
+
