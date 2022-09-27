@@ -11,9 +11,12 @@ const btnScanQR = document.getElementById("btn-scan-qr");
 const btnFlip = document.getElementById("btn-flip");
 const qrFrame = document.getElementById("qr-frame");
 const input = document.querySelector('input[type="range"]');
+const errMsg = document.getElementById("error-msg");
 
 let scanning = false;
 let facingMode = "environment";
+
+errMsg.innerHTML = JSON.stringify(navigator.mediaDevices.getSupportedConstraints(), null, 2);
 
 qrCode.callback = res => {
   if (res) {
@@ -47,9 +50,10 @@ function startCam() {
     .then(function(stream) {
       scanning = true;
 
-      const track = stream.getVideoTracks()[0];
-      const capabilities = track.getCapabilities();
-    
+      let track = stream.getVideoTracks()[0];
+      let capabilities = track.getCapabilities();
+      errMsg.innerHTML = JSON.stringify(capabilities, null, 2);
+
       // Check whether focus distance is supported or not.
       if (capabilities.focusDistance) {
         // Map focus distance to a slider element.
