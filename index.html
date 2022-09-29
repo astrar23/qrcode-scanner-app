@@ -16,16 +16,24 @@
           <img src="./qr_icon.svg">
         </a>
   
-        <canvas hidden="" id="qr-canvas"></canvas>
+        <canvas id="qr-canvas" hidden=""></canvas>
+        <div id="scan-frame" hidden="">
+          <img id="qr-frame" src="./scan-outline-white.svg">
+        </div>
 
         <div>
-          <input type="range" hidden="" />
+          <input id="focus-range-input" type="range" hidden="" />
         </div>
         <div>
           <a id="btn-flip" hidden="">
             <img src="./flip.png">
           </a>
         </div>
+
+        <div id="qr-result" hidden="">
+          <b>Data:</b> <span id="outputData"></span>
+        </div>
+
         <div id="debug-msg">
           <div>
             <p>Supported Constraints:</p>
@@ -45,14 +53,6 @@
           </div>
         </div>
 
-
-        <div hidden="">
-          <img id="qr-frame" src="./scan-outline-white.svg">
-        </div>
-  
-        <div id="qr-result" hidden="">
-          <b>Data:</b> <span id="outputData"></span>
-        </div>
       </div>
   
       <script src="./qrCodeScanner.js"></script>

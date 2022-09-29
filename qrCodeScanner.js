@@ -10,7 +10,7 @@ const btnScanQR = document.getElementById("btn-scan-qr");
 
 const btnFlip = document.getElementById("btn-flip");
 const qrFrame = document.getElementById("qr-frame");
-const input = document.querySelector('input[type="range"]');
+const inputFocusRange = document.getElementById('focus-range-input');
 const getSupportedConstraintsObj = document.getElementById("getSupportedConstraints-obj");
 const getCapabilitiesObj = document.getElementById("getCapabilities-obj");
 const getConstraintsObj = document.getElementById("getConstraints-obj");
@@ -34,7 +34,7 @@ qrCode.callback = res => {
     canvasElement.hidden = true;
     btnScanQR.hidden = false;
     btnFlip.hidden = true;
-    input.hidden = true;
+    inputFocusRange.hidden = true;
   }
 };
 
@@ -60,12 +60,12 @@ function startCam() {
       // Check whether focus distance is supported or not.
       if (capabilities.focusDistance) {
         // Map focus distance to a slider element.
-        input.min = capabilities.focusDistance.min;
-        input.max = capabilities.focusDistance.max;
-        input.step = capabilities.focusDistance.step;
-        input.value = track.getSettings().focusDistance;
+        inputFocusRange.min = capabilities.focusDistance.min;
+        inputFocusRange.max = capabilities.focusDistance.max;
+        inputFocusRange.step = capabilities.focusDistance.step;
+        inputFocusRange.value = track.getSettings().focusDistance;
       
-        input.oninput = function(event) {
+        inputFocusRange.oninput = function(event) {
           track.applyConstraints({
             advanced: [{
               focusMode: "manual",
@@ -73,7 +73,7 @@ function startCam() {
             }]
           });
         };
-        input.hidden = false;
+        inputFocusRange.hidden = false;
       }
       let constraints = track.getConstraints();
       let settings = track.getSettings();
