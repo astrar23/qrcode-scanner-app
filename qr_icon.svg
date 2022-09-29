@@ -1,1 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 11 11"><path d="M0 0H5V5H0z"/><path d="M6 0H11V5H6z"/><path d="M0 6H5V11H0z"/><path fill="#fff" d="M1 1H4V4H1z"/><path d="M2 2H3V3H2z"/><path fill="#fff" d="M7 1H10V4H7z"/><path d="M8 2H9V3H8z"/><path fill="#fff" d="M1 7H4V10H1z"/><path d="M2 8H3V9H2z"/><path d="M6 6H7V7H6z"/><path d="M8 6H9V7H8z"/><path d="M10 6H11V7H10z"/><path d="M6 8H7V9H6z"/><path d="M8 8H9V9H8z"/><path d="M10 8H11V9H10z"/><path d="M6 10H7V11H6z"/><path d="M8 10H9V11H8z"/><path d="M10 10H11V11H10z"/><path d="M7 7H8V8H7z"/><path d="M9 7H10V8H9z"/><path d="M7 9H8V10H7z"/><path d="M9 9H10V10H9z"/></svg>
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 184 184">
+        <rect width="184" height="184" fill="none"/>
+        <rect x="12" y="12" width="60" height="60" rx="8" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"/>
+        <rect x="12" y="112" width="60" height="60" rx="8" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"/>
+        <rect x="112" y="12" width="60" height="60" rx="8" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"/>
+        <line x1="112" y1="112" x2="112" y2="136" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"/>
+        <polyline points="112 172 148 172 148 112" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"/>
+        <line x1="148" y1="128" x2="172" y2="128" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"/>
+</svg>  

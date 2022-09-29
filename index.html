@@ -3,7 +3,7 @@
   <head>
     <title>QR Code Scanner</title>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
     <link rel="stylesheet" href="styles.css" />
     <script src="./qr_packed.js"></script>
   </head>
@@ -19,19 +19,35 @@
         <canvas hidden="" id="qr-canvas"></canvas>
 
         <div>
-          <div>
           <input type="range" hidden="" />
-          </div>
-          <div>
+        </div>
+        <div>
           <a id="btn-flip" hidden="">
             <img src="./flip.png">
           </a>
+        </div>
+        <div id="debug-msg">
+          <div>
+            <p>Supported Constraints:</p>
+            <pre id="getSupportedConstraints-obj"></pre>
           </div>
-          <pre id="error-msg"></pre>
+          <div>
+            <p>Capabilities:</p>
+            <pre id="getCapabilities-obj"></pre>
+          </div>
+          <div>
+            <p>Constraints:</p>
+            <pre id="getConstraints-obj"></pre>
+          </div>
+          <div>
+            <p>Settings:</p>
+            <pre id="getSettings-obj"></pre>
+          </div>
         </div>
 
+
         <div hidden="">
-          <img id="qr-frame" src="./qr-scanner-frame.png">
+          <img id="qr-frame" src="./scan-outline-white.svg">
         </div>
   
         <div id="qr-result" hidden="">
