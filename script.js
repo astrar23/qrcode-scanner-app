@@ -99,6 +99,7 @@ btnFlip.onclick = () => {
 
 function redrawScreen() {
   if (scanning) {
+    alert("number of cam: " + videoSourcesSelect.length);
     qrResult.hidden = true;
     btnScanQR.hidden = true;
 
