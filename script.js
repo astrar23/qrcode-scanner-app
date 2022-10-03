@@ -64,7 +64,9 @@ let MediaStreamHelper = {
 getSupportedConstraintsObj.innerHTML = JSON.stringify(navigator.mediaDevices.getSupportedConstraints(), null, 2);
 
 qrCode.callback = res => {
+  alert("callback");
   if (res) {
+    alert("Result: " + res);
     outputData.innerText = res;
     scanning = false;
 
