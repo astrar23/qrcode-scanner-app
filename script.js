@@ -101,6 +101,7 @@ btnFlip.onclick = () => {
 
 function redrawScreen() {
   if (scanning) {
+    alert("redraw: scanning");
     qrResult.hidden = true;
     btnScanQR.hidden = true;
 
@@ -109,6 +110,7 @@ function redrawScreen() {
     optionSource.hidden = false;
 //    btnFlip.hidden = (videoSourcesSelect.length <= 1);
   } else {
+    alert("redraw: NOT scanning");
     qrResult.hidden = false;
     btnScanQR.hidden = false;
 
