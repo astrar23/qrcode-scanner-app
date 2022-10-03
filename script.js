@@ -130,7 +130,11 @@ function startCam() {
 
           let track = stream.getVideoTracks()[0];
           let capabilities = track.getCapabilities();
+          let constraints = track.getConstraints();
+          let settings = track.getSettings();
           getCapabilitiesObj.innerHTML = JSON.stringify(capabilities, null, 2);
+          getConstraintsObj.innerHTML = JSON.stringify(constraints, null, 2);
+          getSettingsObj.innerHTML = JSON.stringify(settings, null, 2);
     
           // Check whether focus distance is supported or not.
           if (capabilities.focusDistance) {
@@ -153,10 +157,6 @@ function startCam() {
             labelMinRange.innerHTML = "Min: " + inputFocusRange.min;
             labelMaxRange.innerHTML = "Max: " + inputFocusRange.max;
           }
-          let constraints = track.getConstraints();
-          let settings = track.getSettings();
-          getConstraintsObj.innerHTML = JSON.stringify(constraints, null, 2);
-          getSettingsObj.innerHTML = JSON.stringify(settings, null, 2);
     
           // You can now list the devices using the Helper
           MediaStreamHelper.getDevices().then((devices) => {
