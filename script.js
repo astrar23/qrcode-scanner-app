@@ -29,6 +29,7 @@ let videoSourcesSelect = document.getElementById("video-source");
 let scanning = false;
 let initCam = false;
 let hasFocus = false;
+let videoSource = 0;
 
 // Create Helper to ask for permission and list devices
 let MediaStreamHelper = {
@@ -105,7 +106,7 @@ function redrawScreen() {
     canvasElement.hidden = false;
     optionFocus.hidden = (!hasFocus);
     optionSource.hidden = false;
-    btnFlip.hidden = (videoSourcesSelect.length <= 1);
+    btnFlip.hidden = (videoSource <= 1);
   } else {
     qrResult.hidden = false;
     btnScanQR.hidden = false;
@@ -167,15 +168,16 @@ function startCam() {
 
                 // According to the type of media device
                 switch(device.kind){
-                    // Append device to list of Cameras
-                    case "videoinput":
-                        option.text = device.label || `Camera ${videoSourcesSelect.length + 1}`;
-                        videoSourcesSelect.appendChild(option);
-                        break;
                     // Append device to list of Microphone
                     case "audioinput":
                         option.text = device.label || `Microphone ${videoSourcesSelect.length + 1}`;
                         audioSourcesSelect.appendChild(option);
+                        videoSource++;
+                        break;
+                    // Append device to list of Cameras
+                    case "videoinput":
+                        option.text = device.label || `Camera ${videoSourcesSelect.length + 1}`;
+                        videoSourcesSelect.appendChild(option);
                         break;
                 }
 
