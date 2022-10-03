@@ -95,12 +95,11 @@ btnScanQR.onclick = () => {
 };
 
 btnFlip.onclick = () => {
-  var currentIndex = videoSourcesSelect.options.selectedIndex;
-  if (videoSourcesSelect.options.selectedIndex + 1 >= videoSourcesSelect.length) {
-    videoSourcesSelect.options.selectedIndex = 0;
-  } else {
-    videoSourcesSelect.options.selectedIndex++;
+  var newIndex = videoSourcesSelect.options.selectedIndex + 1;
+  if (newIndex >= videoSourcesSelect.length) {
+    newIndex = 0;
   }
+  videoSourcesSelect.selectedIndex = newIndex;
   startCam();
 };
 
