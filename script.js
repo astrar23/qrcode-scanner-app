@@ -5,7 +5,7 @@ const canvasElement = document.getElementById("qr-canvas");
 const canvas = canvasElement.getContext("2d");
 
 const qrResult = document.getElementById("qr-result");
-const outputData = document.getElementById("outputData");
+const outputData = document.getElementById("output-data");
 const btnScanQR = document.getElementById("btn-scan-qr");
 
 const qrFrame = document.getElementById("qr-frame");
@@ -64,9 +64,7 @@ let MediaStreamHelper = {
 getSupportedConstraintsObj.innerHTML = JSON.stringify(navigator.mediaDevices.getSupportedConstraints(), null, 2);
 
 qrCode.callback = res => {
-  alert("callback");
   if (res) {
-    alert("Result: " + res);
     outputData.innerText = res;
     scanning = false;
 
@@ -101,7 +99,6 @@ btnFlip.onclick = () => {
 
 function redrawScreen() {
   if (scanning) {
-    alert("redraw: scanning");
     qrResult.hidden = true;
     btnScanQR.hidden = true;
 
@@ -110,7 +107,6 @@ function redrawScreen() {
     optionSource.hidden = false;
 //    btnFlip.hidden = (videoSourcesSelect.length <= 1);
   } else {
-    alert("redraw: NOT scanning");
     qrResult.hidden = false;
     btnScanQR.hidden = false;
 

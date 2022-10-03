@@ -10,7 +10,7 @@ body {
   margin: 0;
 }
 
-h1, label, span {
+h1, label {
   color: white;
   margin: 0;
   padding: 15px;
@@ -54,6 +54,12 @@ h1, label, span {
   height: 5em;
   padding: 15px;
   margin: 15px;
+}
+
+#min-range-label, #max-range-label {
+  color: white;
+  margin: 0;
+  padding: 15px;
 }
 
 #debug-msg {
