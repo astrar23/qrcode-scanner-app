@@ -10,7 +10,7 @@ body {
   margin: 0;
 }
 
-h1 {
+h1, label, span {
   color: white;
   margin: 0;
   padding: 15px;

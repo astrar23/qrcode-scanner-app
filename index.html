@@ -4,7 +4,7 @@
     <title>QR Code Scanner</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="./styles.css" />
     <script src="./qr_packed.js"></script>
   </head>
 
@@ -22,9 +22,16 @@
         </div>
 
         <div>
-          <input id="focus-range-input" type="range" hidden="" />
-        </div>
-        <div>
+          <span id="min-range-label"></span>
+          <input id="focus-range-input" type="range" />
+          <span id="max-range-label"></span>
+          <br>
+          <label>Select Audio Source (Microphone)</label>
+          <select id="audio-source"></select>
+          <br>
+          <label>Select Video Source (Camera)</label>
+          <select id="video-source"></select>
+          <br>
           <a id="btn-flip" hidden="">
             <img src="./flip.png">
           </a>
@@ -55,6 +62,6 @@
 
       </div>
   
-      <script src="./qrCodeScanner.js"></script>
+      <script src="./script.js"></script>
   </body>
 </html>
