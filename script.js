@@ -188,7 +188,7 @@ function startCam() {
         canvasElement.hidden = false;
         optionFocus.hidden = (!hasFocus);
         optionSource.hidden = false;
-        //btnFlip.hidden = (videoSourcesSelect.childElementCount <= 1);
+        btnFlip.hidden = (videoSourcesSelect.childElementCount <= 1);
         tick();
         scan();
   
