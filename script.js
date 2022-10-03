@@ -72,13 +72,7 @@ qrCode.callback = res => {
       track.stop();
     });
 
-    qrResult.hidden = false;
-    btnScanQR.hidden = false;
-
-    canvasElement.hidden = true;
-    optionFocus.hidden = true;
-    optionSource.hidden = true;
-    btnFlip.hidden = true;
+    redrawScreen();
   }
 };
 
@@ -102,6 +96,27 @@ btnFlip.onclick = () => {
   videoSourcesSelect.selectedIndex = newIndex;
   startCam();
 };
+
+function redrawScreen() {
+  if (scanning) {
+    qrResult.hidden = true;
+    btnScanQR.hidden = true;
+
+    canvasElement.hidden = false;
+    optionFocus.hidden = (!hasFocus);
+    optionSource.hidden = false;
+    btnFlip.hidden = (videoSourcesSelect.childElementCount <= 1);
+  } else {
+    qrResult.hidden = false;
+    btnScanQR.hidden = false;
+
+    canvasElement.hidden = true;
+    optionFocus.hidden = true;
+    optionSource.hidden = true;
+    btnFlip.hidden = true;
+  }
+
+}
 
 function startCam() {
       scanning = true;
@@ -182,14 +197,11 @@ function startCam() {
         video.setAttribute("playsinline", true); // required to tell iOS safari we don't want fullscreen
         video.srcObject = stream;
         video.play();
-        qrResult.hidden = true;
-        btnScanQR.hidden = true;
 
-        canvasElement.hidden = false;
-        optionFocus.hidden = (!hasFocus);
-        optionSource.hidden = false;
-        btnFlip.hidden = (videoSourcesSelect.childElementCount <= 1);
         tick();
+
+        redrawScreen();
+        
         scan();
   
       }).catch(function(err){
