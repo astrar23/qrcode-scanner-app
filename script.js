@@ -105,7 +105,7 @@ function redrawScreen() {
     canvasElement.hidden = false;
     optionFocus.hidden = (!hasFocus);
     optionSource.hidden = false;
-    btnFlip.hidden = (videoSourcesSelect.childElementCount <= 1);
+    btnFlip.hidden = (videoSourcesSelect.length <= 1);
   } else {
     qrResult.hidden = false;
     btnScanQR.hidden = false;
@@ -201,7 +201,7 @@ function startCam() {
         tick();
 
         redrawScreen();
-        
+
         scan();
   
       }).catch(function(err){
