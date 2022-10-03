@@ -22,17 +22,25 @@ let audioSourcesSelect = document.getElementById("audio-source");
 let videoSourcesSelect = document.getElementById("video-source");
 
 videoSourcesSelect.onchange = function(){
+  startCam();
+
+/*
   MediaStreamHelper.requestStream().then(function(stream){
       MediaStreamHelper._stream = stream;
       video.srcObject = stream;
   });
+*/
 };
 
 audioSourcesSelect.onchange = function(){
+  startCam();
+
+/*
   MediaStreamHelper.requestStream().then(function(stream){
       MediaStreamHelper._stream = stream;
       video.srcObject = stream;
   });
+*/
 };
 
 // Create Helper to ask for permission and list devices
@@ -89,6 +97,7 @@ qrCode.callback = res => {
 };
 
 btnScanQR.onclick = () => {
+  getDevices();
   startCam();
 };
 
@@ -98,41 +107,6 @@ btnFlip.onclick = () => {
 };
 
 function startCam() {
-  navigator.mediaDevices
-    .getUserMedia({ video: { facingMode: facingMode } })
-    .then(function(stream) {
-      scanning = true;
-
-      let track = stream.getVideoTracks()[0];
-      let capabilities = track.getCapabilities();
-      getCapabilitiesObj.innerHTML = JSON.stringify(capabilities, null, 2);
-      labelMinRange.innerHTML = "Min: " + 0;
-      labelMaxRange.innerHTML = "Max: " + 0;
-
-      // Check whether focus distance is supported or not.
-      if (capabilities.focusDistance) {
-        // Map focus distance to a slider element.
-        inputFocusRange.min = capabilities.focusDistance.min;
-        inputFocusRange.max = capabilities.focusDistance.max;
-        inputFocusRange.step = capabilities.focusDistance.step;
-        inputFocusRange.value = track.getSettings().focusDistance;
-      
-        inputFocusRange.oninput = function(event) {
-          track.applyConstraints({
-            advanced: [{
-              focusMode: "manual",
-              focusDistance: event.target.value
-            }]
-          });
-        };
-        labelMinRange.innerHTML = "Min: " + inputFocusRange.min;
-        labelMaxRange.innerHTML = "Max: " + inputFocusRange.max;
-//        inputFocusRange.hidden = false;
-      }
-      let constraints = track.getConstraints();
-      let settings = track.getSettings();
-      getConstraintsObj.innerHTML = JSON.stringify(constraints, null, 2);
-      getSettingsObj.innerHTML = JSON.stringify(settings, null, 2);
       
 
 
@@ -146,49 +120,83 @@ function startCam() {
         audioSourcesSelect.selectedIndex = [...audioSourcesSelect.options].findIndex(option => option.text === stream.getAudioTracks()[0].label);
         videoSourcesSelect.selectedIndex = [...videoSourcesSelect.options].findIndex(option => option.text === stream.getVideoTracks()[0].label);
 
+        scanning = true;
+
+        let track = stream.getVideoTracks()[0];
+        let capabilities = track.getCapabilities();
+        getCapabilitiesObj.innerHTML = JSON.stringify(capabilities, null, 2);
+        labelMinRange.innerHTML = "Min: " + 0;
+        labelMaxRange.innerHTML = "Max: " + 0;
+  
+        // Check whether focus distance is supported or not.
+        if (capabilities.focusDistance) {
+          // Map focus distance to a slider element.
+          inputFocusRange.min = capabilities.focusDistance.min;
+          inputFocusRange.max = capabilities.focusDistance.max;
+          inputFocusRange.step = capabilities.focusDistance.step;
+          inputFocusRange.value = track.getSettings().focusDistance;
+        
+          inputFocusRange.oninput = function(event) {
+            track.applyConstraints({
+              advanced: [{
+                focusMode: "manual",
+                focusDistance: event.target.value
+              }]
+            });
+          };
+          labelMinRange.innerHTML = "Min: " + inputFocusRange.min;
+          labelMaxRange.innerHTML = "Max: " + inputFocusRange.max;
+  //        inputFocusRange.hidden = false;
+        }
+        let constraints = track.getConstraints();
+        let settings = track.getSettings();
+        getConstraintsObj.innerHTML = JSON.stringify(constraints, null, 2);
+        getSettingsObj.innerHTML = JSON.stringify(settings, null, 2);
+
         // Play the current stream in the Video element
         video.setAttribute("playsinline", true); // required to tell iOS safari we don't want fullscreen
         video.srcObject = stream;
         video.play();
-          
-        // You can now list the devices using the Helper
-        MediaStreamHelper.getDevices().then((devices) => {
-            // Iterate over all the list of devices (InputDeviceInfo and MediaDeviceInfo)
-            devices.forEach((device) => {
-                let option = new Option();
-                option.value = device.deviceId;
 
-                // According to the type of media device
-                switch(device.kind){
-                    // Append device to list of Cameras
-                    case "videoinput":
-                        option.text = device.label || `Camera ${videoSourcesSelect.length + 1}`;
-                        videoSourcesSelect.appendChild(option);
-                        break;
-                    // Append device to list of Microphone
-                    case "audioinput":
-                        option.text = device.label || `Microphone ${videoSourcesSelect.length + 1}`;
-                        audioSourcesSelect.appendChild(option);
-                        break;
-                }
-
-                console.log(device);
-            });
-        }).catch(function (e) {
-            console.log(e.name + ": " + e.message);
-        });
+        qrResult.hidden = true;
+        btnScanQR.hidden = true;
+        canvasElement.hidden = false;
+        btnFlip.hidden = false;
+        tick();
+        scan();
+  
       }).catch(function(err){
         console.error(err);
       }); 
+}
 
+function getDevices() {
+    // You can now list the devices using the Helper
+    MediaStreamHelper.getDevices().then((devices) => {
+      // Iterate over all the list of devices (InputDeviceInfo and MediaDeviceInfo)
+      devices.forEach((device) => {
+          let option = new Option();
+          option.value = device.deviceId;
 
-      qrResult.hidden = true;
-      btnScanQR.hidden = true;
-      canvasElement.hidden = false;
-      btnFlip.hidden = false;
-      tick();
-      scan();
-    });
+          // According to the type of media device
+          switch(device.kind){
+              // Append device to list of Cameras
+              case "videoinput":
+                  option.text = device.label || `Camera ${videoSourcesSelect.length + 1}`;
+                  videoSourcesSelect.appendChild(option);
+                  break;
+              // Append device to list of Microphone
+              case "audioinput":
+                  option.text = device.label || `Microphone ${videoSourcesSelect.length + 1}`;
+                  audioSourcesSelect.appendChild(option);
+                  break;
+          }
+
+          console.log(device);
+      });
+  }).catch(function (e) {
+      console.log(e.name + ": " + e.message);
+  });
 }
 
 function startCamOLD() {
