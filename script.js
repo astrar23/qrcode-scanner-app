@@ -47,12 +47,12 @@ let MediaStreamHelper = {
             });
         }
 
-        const audioSource = audioSourcesSelect.value;
+//        const audioSource = audioSourcesSelect.value;
         const videoSource = videoSourcesSelect.value;
         const constraints = {
-            audio: {
-                deviceId: audioSource ? {exact: audioSource} : undefined
-            },
+//            audio: {
+//                deviceId: audioSource ? {exact: audioSource} : undefined
+//            },
             video: {
                 deviceId: videoSource ? {exact: videoSource} : undefined
             }
@@ -67,7 +67,7 @@ getSupportedConstraintsObj.innerHTML = JSON.stringify(navigator.mediaDevices.get
 qrCode.callback = res => {
   if (res) {
     outputData.innerText = res;
-    
+
     stopCam();
   }
 };
@@ -107,7 +107,6 @@ function redrawScreen() {
     optionFocus.hidden = (!hasFocus);
     optionSource.hidden = false;
     btnFlip.hidden = (videoSourcesSelect.length <= 1);
-    btnStop.hidden = false;
   } else {
     qrResult.hidden = false;
     btnScanQR.hidden = false;
@@ -116,7 +115,6 @@ function redrawScreen() {
     optionFocus.hidden = true;
     optionSource.hidden = true;
     btnFlip.hidden = true;
-    btnStop.hidden = true;
   }
 
 }
@@ -204,7 +202,7 @@ function startCam() {
     MediaStreamHelper._stream = stream;
 
     // Select the Current Streams in the list of devices
-    audioSourcesSelect.selectedIndex = [...audioSourcesSelect.options].findIndex(option => option.text === stream.getAudioTracks()[0].label);
+//    audioSourcesSelect.selectedIndex = [...audioSourcesSelect.options].findIndex(option => option.text === stream.getAudioTracks()[0].label);
     videoSourcesSelect.selectedIndex = [...videoSourcesSelect.options].findIndex(option => option.text === stream.getVideoTracks()[0].label);
 
     // Play the current stream in the Video element
