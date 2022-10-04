@@ -46,7 +46,7 @@ h1, label {
   background-color: white;
 }
 
-#btn-flip {
+#btn-flip, #btn-stop {
   cursor: pointer;
 }
 
@@ -54,6 +54,14 @@ h1, label {
   height: 5em;
   padding: 15px;
   margin: 15px;
+}
+
+#btn-stop img {
+  height: 2em;
+  padding: 15px;
+  position: absolute;
+  right: 0px;
+  top: 0px;
 }
 
 #min-range-label, #max-range-label {

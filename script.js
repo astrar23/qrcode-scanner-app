@@ -17,6 +17,7 @@ const optionFocus = document.getElementById('focus-option');
 const optionSource = document.getElementById('source-option');
 
 const btnFlip = document.getElementById("btn-flip");
+const btnStop = document.getElementById("btn-stop");
 
 const getSupportedConstraintsObj = document.getElementById("getSupportedConstraints-obj");
 const getCapabilitiesObj = document.getElementById("getCapabilities-obj");
@@ -66,13 +67,8 @@ getSupportedConstraintsObj.innerHTML = JSON.stringify(navigator.mediaDevices.get
 qrCode.callback = res => {
   if (res) {
     outputData.innerText = res;
-    scanning = false;
-
-    video.srcObject.getTracks().forEach(track => {
-      track.stop();
-    });
-
-    redrawScreen();
+    
+    stopCam();
   }
 };
 
@@ -97,6 +93,11 @@ btnFlip.onclick = () => {
   startCam();
 };
 
+btnStop.onclick = () => {
+  stopCam();
+  qrResult.hidden = true;
+};
+
 function redrawScreen() {
   if (scanning) {
     qrResult.hidden = true;
@@ -106,6 +107,7 @@ function redrawScreen() {
     optionFocus.hidden = (!hasFocus);
     optionSource.hidden = false;
     btnFlip.hidden = (videoSourcesSelect.length <= 1);
+    btnStop.hidden = false;
   } else {
     qrResult.hidden = false;
     btnScanQR.hidden = false;
@@ -114,8 +116,19 @@ function redrawScreen() {
     optionFocus.hidden = true;
     optionSource.hidden = true;
     btnFlip.hidden = true;
+    btnStop.hidden = true;
   }
 
+}
+
+function stopCam() {
+  scanning = false;
+
+  video.srcObject.getTracks().forEach(track => {
+    track.stop();
+  });
+
+  redrawScreen();
 }
 
 function startCam() {
