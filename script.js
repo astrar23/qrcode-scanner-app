@@ -47,12 +47,12 @@ let MediaStreamHelper = {
             });
         }
 
-//        const audioSource = audioSourcesSelect.value;
+        const audioSource = audioSourcesSelect.value;
         const videoSource = videoSourcesSelect.value;
         const constraints = {
-//            audio: {
-//                deviceId: audioSource ? {exact: audioSource} : undefined
-//            },
+            audio: {
+                deviceId: audioSource ? {exact: audioSource} : undefined
+            },
             video: {
                 deviceId: videoSource ? {exact: videoSource} : undefined
             }
