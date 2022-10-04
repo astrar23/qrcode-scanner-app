@@ -202,7 +202,7 @@ function startCam() {
     MediaStreamHelper._stream = stream;
 
     // Select the Current Streams in the list of devices
-//    audioSourcesSelect.selectedIndex = [...audioSourcesSelect.options].findIndex(option => option.text === stream.getAudioTracks()[0].label);
+    audioSourcesSelect.selectedIndex = [...audioSourcesSelect.options].findIndex(option => option.text === stream.getAudioTracks()[0].label);
     videoSourcesSelect.selectedIndex = [...videoSourcesSelect.options].findIndex(option => option.text === stream.getVideoTracks()[0].label);
 
     // Play the current stream in the Video element
